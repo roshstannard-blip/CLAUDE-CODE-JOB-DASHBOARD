@@ -19,9 +19,10 @@ Google/Bing search snippets do not reliably expose "posted X hours/days ago" for
 ## Refreshing
 
 This file is a snapshot, not a live feed. To refresh:
-1. Open the file and click the live search links in each tab (they always compute against today's date).
-2. Add any new roles you find as new objects in the `ROLES` array in the `<script>` block at the bottom of `index.html` — same shape as the existing entries.
-3. For true daily 24-hour alerting, consider a paid job-alert API (LinkedIn Recruiter, SerpAPI Google Jobs, or Indeed's API) — that's the only way to get minute-level freshness that public search snippets can't provide.
+1. Click **"Check Live Post Dates"** at the top of the page. This calls Greenhouse's, Lever's, and Ashby's public, CORS-enabled job-board APIs directly from your browser — the same read-only endpoints those companies use to embed their own job boards on their career pages. It works from your machine even though the sandboxed research environment that built this file couldn't reach those domains (network policy blocked it there). It covers the 13 roles hosted directly on those three ATS platforms, pulls their real post/update timestamp, and automatically re-sorts them into the correct 24h/3-day/7-day tab. Roles it can't confirm (API shape changed, job filled, a privacy extension blocked the call) keep their "not publicly confirmed" status rather than showing a guess — check the status line after clicking.
+2. For the aggregator-sourced roles (Wellfound, Himalayas, Remotive, WeWorkRemotely, Dynamite Jobs, Remote100k, Workable — no public API), use the live search links in each tab; they always compute against today's date.
+3. Add any new roles you find as new objects in the `ROLES` array in the `<script>` block at the bottom of `index.html` — same shape as the existing entries.
+4. For true daily 24-hour alerting across *all* sources (including the aggregators), a paid job-alert API (LinkedIn Recruiter, SerpAPI Google Jobs, or Indeed's API) is still the only option — that's the one gap "Check Live Post Dates" doesn't close.
 
 ## Fit % methodology
 

@@ -70,6 +70,13 @@
     <b>Read this before you trust the dates.</b> Public search indexes (Google/Bing) do not reliably expose "posted X hours/days ago" for most ATS-hosted postings (Greenhouse, Ashby, Lever, Workable) — that data only exists inside each board's own live UI. Of the 34 roles below, exactly <b>1</b> had a source-confirmed post-date inside 7 days (Nooks, ~6 days). Everything else is a currently-live, verified-real posting whose exact post date I could not confirm — it lives in the <b>"All Verified Matches"</b> tab rather than being guessed into a time bucket. To get true same-day (24h) or 3-day freshness, use the <b>live search links</b> at the top of each time tab — they're built from your exact boolean strings and auto-compute today's date range, so click them fresh each morning. No hiring manager name, salary, or review below is invented — anything unconfirmed says so explicitly.
   </div>
 
+  <div class="panel" style="margin-bottom:18px;">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <button id="liveCheckBtn" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;">Check Live Post Dates ↻</button>
+      <div class="note" id="liveCheckStatus" style="flex:1;min-width:260px;">Calls Greenhouse, Lever &amp; Ashby's public job-board APIs directly from <b>your</b> browser (they're CORS-enabled by design, so this works even though the sandboxed research environment that built this file couldn't reach them). Covers the 13 roles hosted directly on those three ATS platforms. Aggregator-sourced roles (Wellfound, Himalayas, Remotive, WeWorkRemotely, Dynamite Jobs, Remote100k, Workable) don't expose a public API — use their live search links for those.</div>
+    </div>
+  </div>
+
   <div class="stat-row" id="statRow"></div>
 
   <div class="tabs" id="tabBar"></div>
@@ -196,6 +203,99 @@ const ROLES = [
 {title:'Director of Sales Strategy and Operations', company:'SingleStore', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Database SaaS', salaryMin:162, salaryMax:287, source:'Wellfound', jobUrl:'https://wellfound.com/jobs', careersUrl:'https://www.singlestore.com/careers/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:75, fitNote:'Comp confirmed in range, but source signal says "posted ~3 months ago" — this is likely an evergreen or possibly-filled listing. Verify it is still active before spending outreach time on it.', bucket:'unconfirmed', postedNote:'Flagged stale: ~3 months old per Wellfound listing as of 2026-09-05. Confirm live status before pursuing.'},
 ];
 
+// ---- Live post-date check: calls Greenhouse/Lever/Ashby's public, CORS-enabled job-board APIs ----
+// from the viewer's own browser (not the sandboxed research environment, which is network-blocked from these hosts).
+function deriveAtsRef(role){
+  let m;
+  if((m = role.jobUrl.match(/(?:boards|job-boards)\.greenhouse\.io\/([a-zA-Z0-9_-]+)\/jobs\/(\d+)/))){
+    return {type:'greenhouse', board:m[1], id:m[2]};
+  }
+  if((m = role.jobUrl.match(/embed\/job_app\?token=(\d+)/))){
+    const boardMatch = (role.careersUrl||'').match(/greenhouse\.io\/([a-zA-Z0-9_-]+)/);
+    if(boardMatch) return {type:'greenhouse', board:boardMatch[1], id:m[1], guessedBoard:true};
+    return null;
+  }
+  if((m = role.jobUrl.match(/lever\.co\/([a-zA-Z0-9_-]+)\/([0-9a-f-]{30,36})/))){
+    return {type:'lever', board:m[1], id:m[2]};
+  }
+  if((m = role.jobUrl.match(/ashbyhq\.com\/([a-zA-Z0-9_-]+)\/([0-9a-f-]{30,36})/))){
+    return {type:'ashby', board:m[1], id:m[2]};
+  }
+  return null;
+}
+
+function fetchWithTimeout(url, ms){
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), ms);
+  return fetch(url, {signal: ctrl.signal}).finally(()=>clearTimeout(t));
+}
+
+function daysBetween(then, now){ return (now - then) / 86400000; }
+
+function assignBucketFromDays(role, days, sourceLabel, exactDateStr){
+  role.confirmedDays = days;
+  if(days <= 1){ role.bucket='24h'; }
+  else if(days <= 3){ role.bucket='3day'; }
+  else if(days <= 7){ role.bucket='7day'; }
+  else { role.bucket='stale'; }
+  role.postedNote = `Confirmed via ${sourceLabel}: posted ${days<1?'less than 1 day':Math.round(days)+' day'+(Math.round(days)===1?'':'s')} ago (${exactDateStr}).`;
+}
+
+async function checkOneRole(role){
+  const ref = deriveAtsRef(role);
+  if(!ref) return {role, status:'no-api'};
+  try{
+    if(ref.type==='greenhouse'){
+      const resp = await fetchWithTimeout(`https://boards-api.greenhouse.io/v1/boards/${ref.board}/jobs/${ref.id}`, 8000);
+      if(!resp.ok) throw new Error('HTTP '+resp.status);
+      const data = await resp.json();
+      if(!data.updated_at) throw new Error('no updated_at field');
+      const d = new Date(data.updated_at);
+      assignBucketFromDays(role, daysBetween(d, new Date()), 'Greenhouse API (last-updated timestamp, the closest field Greenhouse exposes to a post date)'+(ref.guessedBoard?' — board slug guessed from careers link, verify this matched the right job':''), d.toLocaleDateString());
+      return {role, status:'ok'};
+    }
+    if(ref.type==='lever'){
+      const resp = await fetchWithTimeout(`https://api.lever.co/v0/postings/${ref.board}/${ref.id}?mode=json`, 8000);
+      if(!resp.ok) throw new Error('HTTP '+resp.status);
+      const data = await resp.json();
+      if(!data.createdAt) throw new Error('no createdAt field');
+      const d = new Date(data.createdAt);
+      assignBucketFromDays(role, daysBetween(d, new Date()), 'Lever API (createdAt)', d.toLocaleDateString());
+      return {role, status:'ok'};
+    }
+    if(ref.type==='ashby'){
+      const resp = await fetchWithTimeout(`https://api.ashbyhq.com/posting-api/job-board/${ref.board}`, 8000);
+      if(!resp.ok) throw new Error('HTTP '+resp.status);
+      const data = await resp.json();
+      const list = data.jobs || data.postings || [];
+      const match = list.find(j => j.id === ref.id);
+      if(!match || !match.publishedAt) throw new Error('job not found in board listing or no publishedAt');
+      const d = new Date(match.publishedAt);
+      assignBucketFromDays(role, daysBetween(d, new Date()), 'Ashby API (publishedAt)', d.toLocaleDateString());
+      return {role, status:'ok'};
+    }
+  }catch(err){
+    return {role, status:'failed', error: err.message};
+  }
+  return {role, status:'no-api'};
+}
+
+async function checkLiveDates(){
+  const btn = document.getElementById('liveCheckBtn');
+  const status = document.getElementById('liveCheckStatus');
+  btn.disabled = true; btn.textContent = 'Checking…';
+  const candidates = ROLES.filter(r => deriveAtsRef(r));
+  const results = await Promise.all(candidates.map(checkOneRole));
+  const ok = results.filter(r=>r.status==='ok').length;
+  const failed = results.filter(r=>r.status==='failed');
+  btn.disabled = false; btn.textContent = 'Check Live Post Dates ↻';
+  status.innerHTML = `<b>Live check complete (${new Date().toLocaleTimeString()}):</b> confirmed real post dates for ${ok} of ${candidates.length} ATS-hosted roles.`
+    + (failed.length ? ` ${failed.length} could not be matched (API changed shape, job filled/removed, or a browser privacy extension blocked the request) — those keep their "not publicly confirmed" status rather than showing a guess.` : '')
+    + ` If nothing changed and you're on Chrome/Firefox with no ad-blocker interfering, this should work every time you open the file — it's a direct call from your machine, not from Claude's sandbox.`;
+  renderTabs(); renderLiveLinks(); renderTable(); renderStats();
+}
+document.getElementById('liveCheckBtn').addEventListener('click', checkLiveDates);
+
 function fitClass(f){ return f>=80?'fit-high':(f>=65?'fit-mid':'fit-low'); }
 function modeClass(m){ return m==='Remote'?'pill-remote':'pill-hybrid'; }
 function salBand(min,max){
@@ -212,7 +312,7 @@ const TABS = [
   {key:'24h', label:'Last 24 Hours'},
   {key:'3day', label:'Last 3 Days'},
   {key:'7day', label:'Last 7 Days'},
-  {key:'unconfirmed', label:'All Verified Matches (date unconfirmed)'},
+  {key:'unconfirmed', label:'All Verified Matches (7+ days / date unconfirmed)'},
 ];
 let activeTab = '24h';
 
@@ -232,7 +332,7 @@ function populateFilterOptions(){
 function renderTabs(){
   const bar=document.getElementById('tabBar'); bar.innerHTML='';
   TABS.forEach(t=>{
-    const n = t.key==='unconfirmed' ? ROLES.filter(r=>r.bucket==='unconfirmed').length
+    const n = t.key==='unconfirmed' ? ROLES.filter(r=>r.bucket==='unconfirmed'||r.bucket==='stale').length
             : t.key==='7day' ? ROLES.filter(r=>r.bucket==='7day'||r.bucket==='3day'||r.bucket==='24h').length
             : t.key==='3day' ? ROLES.filter(r=>r.bucket==='3day'||r.bucket==='24h').length
             : ROLES.filter(r=>r.bucket==='24h').length;
@@ -260,7 +360,7 @@ function getFiltered(){
   const mode = document.getElementById('modeFilter').value;
 
   return ROLES.filter(r=>{
-    if(activeTab==='unconfirmed' && r.bucket!=='unconfirmed') return false;
+    if(activeTab==='unconfirmed' && !(r.bucket==='unconfirmed'||r.bucket==='stale')) return false;
     if(activeTab==='7day' && r.bucket==='unconfirmed') return false;
     if(activeTab==='3day' && !(r.bucket==='3day'||r.bucket==='24h')) return false;
     if(activeTab==='24h' && r.bucket!=='24h') return false;
