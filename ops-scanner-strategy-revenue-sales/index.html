@@ -68,6 +68,7 @@
   .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap;}
   .pill-remote{background:var(--pill-remote-bg);color:var(--pill-remote-fg);}
   .pill-hybrid{background:var(--pill-hybrid-bg);color:var(--pill-hybrid-fg);}
+  .pill-mid{background:var(--head);color:var(--muted);}
   .fit{font-weight:800;padding:3px 9px;border-radius:14px;font-size:12px;display:inline-block;min-width:44px;text-align:center;font-variant-numeric:tabular-nums;}
   .fit-high{background:var(--good-bg);color:var(--good);}
   .fit-mid{background:var(--fit-mid-bg);color:var(--fit-mid-fg);}
@@ -92,7 +93,7 @@
 <body>
 <header>
   <h1>Ops Job Radar</h1>
-  <p>Standalone scanner for Strategy Operations, Revenue Operations &amp; Sales Operations roles — built separately from Rosh's other job-search tools. Target: US-based, Remote/Hybrid (NY / Stamford preferred), $140K&ndash;$305K, Director-track or IC-owner roles at B2B / SaaS / professional-services / consulting companies.</p>
+  <p>Standalone scanner for Strategy Operations, Revenue Operations, Sales Operations &amp; Business Operations (Biz Ops) roles — built separately from Rosh's other job-search tools. Target: US-based, Remote/Hybrid (NY / Stamford preferred), $140K&ndash;$305K, Director-track or IC-owner roles at B2B / SaaS / professional-services / consulting companies.</p>
 </header>
 <div class="wrap">
 
@@ -117,7 +118,7 @@
     <div class="filters">
       <div class="filter-group">
         <label>Search company / title</label>
-        <input type="text" id="searchBox" placeholder="e.g. Kong, Revenue Operations, Fintech...">
+        <input type="text" id="searchBox" placeholder="e.g. Kong, Biz Ops, Fintech...">
       </div>
       <div class="filter-group">
         <label>State / Location</label>
@@ -155,7 +156,7 @@
 </div>
 
 <footer>
-  <p><b>Methodology:</b> Method 1 (boolean site: search across Greenhouse, Ashby, Lever, Workable, WeWorkRemotely, Remote.co, Himalayas, Wellfound, Remotive, Jobspresso, Dynamite Jobs, Remote100k) against your role/industry keyword set, re-run automatically once a day. Fit % is graded against your Director, Strategy &amp; Operations positioning (15+ yrs, B2B SaaS &amp; professional services, operating cadence / GTM / RevOps / forecasting, Salesforce &amp; Power BI/Tableau, NYC metro) on function match, seniority, industry, location/mode, and confirmed comp. Hiring manager and employee-review fields are populated only where a public, sourced answer was found (LinkedIn, company site, or Glassdoor) — everything else is explicitly marked "Not publicly confirmed" rather than guessed.</p>
+  <p><b>Methodology:</b> Method 1 (boolean site: search for "strategy operations" OR "revenue operations" OR "sales operations" OR "business operations" OR "biz ops" across Greenhouse, Ashby, Lever, Workable, WeWorkRemotely, Remote.co, Himalayas, Wellfound, Remotive, Jobspresso, Dynamite Jobs, Remote100k) against your industry keyword set, re-run automatically once a day. Fit % is graded against your Director, Strategy &amp; Operations positioning (15+ yrs, B2B SaaS &amp; professional services, operating cadence / GTM / RevOps / forecasting, Salesforce &amp; Power BI/Tableau, NYC metro) on function match, seniority, industry, location/mode, and confirmed comp. Hiring manager and employee-review fields are populated only where a public, sourced answer was found (LinkedIn, company site, or Glassdoor) — everything else is explicitly marked "Not publicly confirmed" rather than guessed.</p>
 </footer>
 
 <script>
@@ -164,7 +165,7 @@ const TODAY = new Date();
 function fmtDate(d){ const mm=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); return mm+'/'+dd+'/'+d.getFullYear(); }
 function daysAgo(n){ const d=new Date(TODAY); d.setDate(d.getDate()-n); return d; }
 
-const ROLE_TERMS = '"strategy operations" OR "revenue operations" OR "sales operations"';
+const ROLE_TERMS = '"strategy operations" OR "revenue operations" OR "sales operations" OR "business operations" OR "biz ops"';
 const INDUSTRY_TERMS = '"professional services" OR "consulting" OR "SaaS" OR "B2B"';
 const SITES = [
   {name:'Greenhouse', site:'boards.greenhouse.io'},
@@ -378,7 +379,7 @@ async function checkLiveDates(){
 document.getElementById('liveCheckBtn').addEventListener('click', checkLiveDates);
 
 function fitClass(f){ return f>=80?'fit-high':(f>=65?'fit-mid':'fit-low'); }
-function modeClass(m){ return m==='Remote'?'pill-remote':'pill-hybrid'; }
+function modeClass(m){ return m==='Remote'?'pill-remote':(m==='Hybrid'?'pill-hybrid':'pill-mid'); }
 function salBand(min,max){
   if(min==null) return 'unlisted';
   const mid=(min+max)/2;
