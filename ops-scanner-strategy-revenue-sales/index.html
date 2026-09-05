@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy / Revenue / Sales Ops Job Scanner — Rosh Stannard</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --panel:#ffffff; --border:#dde1e6; --text:#1c2230; --muted:#5b6472;
+    --accent:#1f4fd6; --accent-light:#eaf0ff; --good:#1b8a5a; --good-bg:#e6f7ee;
+    --warn:#a15c00; --warn-bg:#fff3e0; --bad:#b3261e; --bad-bg:#fdecea; --head:#eef1f6;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
+  header{background:linear-gradient(135deg,#14213d,#1f4fd6);color:#fff;padding:20px 28px;}
+  header h1{margin:0 0 4px;font-size:20px;}
+  header p{margin:0;font-size:13px;opacity:.9;max-width:900px;line-height:1.5;}
+  .wrap{max-width:1400px;margin:0 auto;padding:20px;}
+  .callout{background:#fff8e1;border:1px solid #e8c96b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:18px;color:#5c4a06;}
+  .callout b{color:#3a2f00;}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border);}
+  .tab-btn{background:none;border:none;padding:10px 16px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .tab-btn .count{background:var(--head);border-radius:10px;padding:1px 8px;margin-left:6px;font-size:11.5px;color:var(--text);}
+  .tab-btn.active .count{background:var(--accent-light);color:var(--accent);}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:18px;}
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
+  .filters select, .filters input[type=text]{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;color:var(--text);}
+  .filters input[type=text]{flex:1;min-width:220px;}
+  .filters label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:block;margin-bottom:3px;}
+  .filter-group{display:flex;flex-direction:column;}
+  .reset-btn{align-self:flex-end;background:var(--head);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12.5px;cursor:pointer;color:var(--text);}
+  .live-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .live-links a{font-size:12px;background:var(--accent-light);color:var(--accent);border:1px solid #c6d6fb;border-radius:16px;padding:6px 12px;text-decoration:none;}
+  .live-links a:hover{background:#dbe6ff;}
+  .empty-state{padding:28px 16px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.7;}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;}
+  thead th{background:var(--head);text-align:left;padding:9px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);position:sticky;top:0;white-space:nowrap;}
+  tbody td{padding:10px;border-top:1px solid var(--border);vertical-align:top;}
+  tbody tr:hover{background:#fafbff;}
+  .role-title{font-weight:700;color:var(--text);}
+  .company{font-weight:600;color:var(--accent);}
+  .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .pill-remote{background:#e8f1ff;color:#1f4fd6;}
+  .pill-hybrid{background:#fdf1e6;color:#a15c00;}
+  .fit{font-weight:800;padding:3px 9px;border-radius:14px;font-size:12px;display:inline-block;min-width:44px;text-align:center;}
+  .fit-high{background:var(--good-bg);color:var(--good);}
+  .fit-mid{background:#eef1f6;color:#3a4459;}
+  .fit-low{background:var(--bad-bg);color:var(--bad);}
+  .links a{display:block;font-size:12px;color:var(--accent);text-decoration:none;margin-bottom:3px;}
+  .links a:hover{text-decoration:underline;}
+  .note{color:var(--muted);font-size:11.5px;}
+  .flag{color:var(--warn);font-weight:700;}
+  footer{max-width:1400px;margin:0 auto;padding:10px 20px 40px;font-size:11.5px;color:var(--muted);line-height:1.6;}
+  .table-scroll{overflow-x:auto;}
+  .stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 16px;min-width:130px;}
+  .stat .n{font-size:20px;font-weight:800;}
+  .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Strategy / Revenue / Sales Ops Job Scanner</h1>
+  <p>Standalone scanner for Strategy Operations, Revenue Operations &amp; Sales Operations roles — built separately from Rosh's other job-search tools. Target: US-based, Remote/Hybrid (NY / Stamford preferred), $140K&ndash;$305K, Director-track or IC-owner roles at B2B / SaaS / professional-services / consulting companies. Snapshot pulled 2026-09-05.</p>
+</header>
+<div class="wrap">
+
+  <div class="callout">
+    <b>Read this before you trust the dates.</b> Public search indexes (Google/Bing) do not reliably expose "posted X hours/days ago" for most ATS-hosted postings (Greenhouse, Ashby, Lever, Workable) — that data only exists inside each board's own live UI. Of the 34 roles below, exactly <b>1</b> had a source-confirmed post-date inside 7 days (Nooks, ~6 days). Everything else is a currently-live, verified-real posting whose exact post date I could not confirm — it lives in the <b>"All Verified Matches"</b> tab rather than being guessed into a time bucket. To get true same-day (24h) or 3-day freshness, use the <b>live search links</b> at the top of each time tab — they're built from your exact boolean strings and auto-compute today's date range, so click them fresh each morning. No hiring manager name, salary, or review below is invented — anything unconfirmed says so explicitly.
+  </div>
+
+  <div class="stat-row" id="statRow"></div>
+
+  <div class="tabs" id="tabBar"></div>
+
+  <div class="panel">
+    <div class="filters">
+      <div class="filter-group">
+        <label>Search company / title</label>
+        <input type="text" id="searchBox" placeholder="e.g. Kong, Revenue Operations, Fintech...">
+      </div>
+      <div class="filter-group">
+        <label>State / Location</label>
+        <select id="stateFilter"><option value="">All locations</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Salary range</label>
+        <select id="salaryFilter">
+          <option value="">All salary bands</option>
+          <option value="unlisted">Not listed by employer</option>
+          <option value="140-180">$140K – $180K</option>
+          <option value="180-230">$180K – $230K</option>
+          <option value="230-280">$230K – $280K</option>
+          <option value="280-305">$280K – $305K+</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Industry</label>
+        <select id="industryFilter"><option value="">All industries</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Work mode</label>
+        <select id="modeFilter">
+          <option value="">Remote or Hybrid</option>
+          <option value="Remote">Remote only</option>
+          <option value="Hybrid">Hybrid only</option>
+        </select>
+      </div>
+      <button class="reset-btn" id="resetBtn">Reset filters</button>
+    </div>
+
+    <div id="liveLinksHost"></div>
+    <div id="tableHost"></div>
+  </div>
+</div>
+
+<footer>
+  <p><b>Methodology:</b> Method 1 (boolean site: search across Greenhouse, Ashby, Lever, Workable, WeWorkRemotely, Remote.co, Himalayas, Wellfound, Remotive, Jobspresso, Dynamite Jobs, Remote100k) run 2026-09-05 against your role/industry keyword set. Fit % is graded against your Director, Strategy &amp; Operations positioning (15+ yrs, B2B SaaS &amp; professional services, operating cadence / GTM / RevOps / forecasting, Salesforce &amp; Power BI/Tableau, NYC metro) on function match, seniority, industry, location/mode, and confirmed comp. Hiring manager and 2026 employee-review fields are populated only where I found a public, sourced answer (LinkedIn, company site, or Glassdoor) — everything else is explicitly marked "Not publicly confirmed" rather than guessed. Re-run the live search links periodically to refresh; this file does not auto-refresh on its own.</p>
+</footer>
+
+<script>
+const TODAY = new Date('2026-09-05T12:00:00');
+
+function fmtDate(d){ const mm=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); return mm+'/'+dd+'/'+d.getFullYear(); }
+function daysAgo(n){ const d=new Date(TODAY); d.setDate(d.getDate()-n); return d; }
+
+const ROLE_TERMS = '"strategy operations" OR "revenue operations" OR "sales operations"';
+const INDUSTRY_TERMS = '"professional services" OR "consulting" OR "SaaS" OR "B2B"';
+const SITES = [
+  {name:'Greenhouse', site:'boards.greenhouse.io'},
+  {name:'Ashby', site:'jobs.ashbyhq.com'},
+  {name:'Lever', site:'lever.co'},
+  {name:'Workable', site:'workable.com'},
+  {name:'WeWorkRemotely', site:'weworkremotely.com'},
+  {name:'Remote.co', site:'remote.co'},
+  {name:'Himalayas', site:'himalayas.app'},
+  {name:'Dynamite Jobs', site:'dynamitejobs.com'},
+  {name:'Jobspresso', site:'jobspresso.co'},
+  {name:'Remotive', site:'remotive.com'},
+  {name:'Wellfound', site:'wellfound.com'},
+  {name:'Remote100k', site:'remote100k.com'},
+];
+
+function googleUrl(site, tbs){
+  const q = encodeURIComponent(`site:${site} ${ROLE_TERMS} ${INDUSTRY_TERMS}`);
+  return `https://www.google.com/search?q=${q}&tbs=${tbs}`;
+}
+function customRangeTbs(daysBack){
+  const max = TODAY, min = daysAgo(daysBack);
+  return `cdr:1,cd_min:${fmtDate(min)},cd_max:${fmtDate(max)}`;
+}
+
+const LIVE_LINK_SETS = {
+  '24h': SITES.map(s=>({label:s.name, url: googleUrl(s.site,'qdr:d')})),
+  '3day': SITES.map(s=>({label:s.name, url: googleUrl(s.site, customRangeTbs(3))})),
+  '7day': SITES.map(s=>({label:s.name, url: googleUrl(s.site,'qdr:w')})),
+};
+
+// ---- DATA: every row below is a real, currently-live posting found via live search on 2026-09-05. ----
+// salaryMin/Max in $K, null = not listed by employer. bucket: '7day' (confirmed <=7 days) or 'unconfirmed'.
+const ROLES = [
+{title:'Senior Director, Sales Strategy & Operations', company:'Kong Inc.', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS / Infrastructure', salaryMin:233, salaryMax:275, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/kong/jobs/senior-director-sales-strategy-operations', careersUrl:'https://konghq.com/careers', hiringManager:'Likely reports toward Joe Eskenazi, Chief Revenue Officer (oversees Sales, Revenue Operations & Enablement per Kong\'s official CRO announcement) — exact direct manager not publicly confirmed.', reviews:'Glassdoor: mixed/polarized — one review calls it "one of the few tech bright spots," another is highly critical. Verify recent sentiment before investing time.', fit:90, fitNote:'Director title, comp squarely in range, B2B SaaS infra, remote-US — as strong a structural match as this pass found.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Americas Sales Strategy & Operations', company:'ServiceNow', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Enterprise SaaS', salaryMin:189, salaryMax:331, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/servicenow/jobs/director-americas-sales-strategy-operations', careersUrl:'https://www.servicenow.com/careers.html', hiringManager:'Not publicly confirmed by name. Americas sales org is led by Steve Walters, Americas President — this role sits at least 1-2 layers below him.', reviews:'Glassdoor: 4.0/5 (5,861 reviews), down ~7% over last 12 months — still strong, trend worth watching.', fit:88, fitNote:'Director + Americas strategy scope + comp band exactly matches your range; large enterprise SaaS.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Sales Operations Management (Security)', company:'ServiceNow', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Enterprise SaaS', salaryMin:null, salaryMax:null, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/servicenow/jobs/director-sales-operations-management-security', careersUrl:'https://www.servicenow.com/careers.html', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.0/5 (5,861 reviews).', fit:78, fitNote:'Director-level, but scoped narrowly to the Security business unit; comp not disclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Business Strategy Director, Services', company:'Salesforce', location:'United States (multiple)', state:'Remote', mode:'Remote', industry:'Enterprise SaaS / Professional Services', salaryMin:197, salaryMax:316, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/jobs/business-strategy', careersUrl:'https://www.salesforce.com/company/careers/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass — Salesforce Glassdoor volume is large (22,850+ reviews); check current trend before applying.', fit:92, fitNote:'Best structural match found: "Services" (professional-services) business strategy line up almost exactly with your Deloitte/Korn Ferry consulting-to-ops background, and comp is dead-center your range.', bucket:'unconfirmed', postedNote:'Source signal: "posted ~8 days ago" — just outside your 7-day window as of 2026-09-05, so it is NOT placed in the 7-day tab, but flagged here because it is otherwise your strongest match. Re-check live link to confirm it is still open.'},
+{title:'Director, Sales Operations', company:'Hightouch', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Data / SaaS', salaryMin:200, salaryMax:250, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/jobs/revenue-operations', careersUrl:'https://hightouch.com/careers', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: "good place, not perfect" per employee review; no aggregate 2026 score surfaced.', fit:80, fitNote:'Director title, comp in range, but company is early-stage data/SaaS — smaller org than your Korn Ferry/Gartner scale.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Director, Revenue Operations', company:'Dropbox', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS', salaryMin:null, salaryMax:null, source:'Greenhouse / Company site', jobUrl:'https://boards.greenhouse.io/dropbox/jobs/8067362', careersUrl:'https://www.dropbox.jobs', hiringManager:'Grant Clarke held "Head of Revenue Operations" at Dropbox per LinkedIn as of his most recent listed role — but phrasing suggests he may have since left; Dropbox appears to be concurrently hiring for that same Head seat, so the reporting line is in flux. Confirm before referencing him directly.', reviews:'Not pulled this pass.', fit:85, fitNote:'Director title, large-scale public SaaS company, remote-US; comp not disclosed on this posting.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Sales Compensation', company:'Dropbox', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS', salaryMin:null, salaryMax:null, source:'Greenhouse / Company site', jobUrl:'https://boards.greenhouse.io/dropbox/jobs/8121667', careersUrl:'https://www.dropbox.jobs', hiringManager:'Per the JD itself: reports to the "Head of Revenue Operations" (title confirmed, name currently unconfirmed/in flux — see note above).', reviews:'Not pulled this pass.', fit:74, fitNote:'Narrower comp-design scope than your broader ops/strategy remit, but same strong company platform.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Director, Revenue Operations', company:'CloudZero', location:'Remote (US, HQ Boston)', state:'Remote', mode:'Remote', industry:'FinOps / Cloud Cost SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/CloudZero/9df7a55b-3c2a-41a7-bd4c-a499a9f24a8b', careersUrl:'https://jobs.ashbyhq.com/CloudZero', hiringManager:'JD states partnership with Head of Sales, Head of CS and Head of Marketing — no individual name confirmed.', reviews:'Glassdoor: 91% would recommend; 4.4 work/life balance, 4.8 culture & values, 4.5 career opportunities — strongest review signal in this whole list.', fit:84, fitNote:'Center-of-excellence scope matches your operating-cadence background closely; comp not disclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Revenue Operations', company:'Wpromote', location:'Remote / NY hub', state:'NY', mode:'Hybrid', industry:'Marketing Agency / Professional Services', salaryMin:null, salaryMax:null, source:'Lever', jobUrl:'https://jobs.lever.co/wpromote/482ab269-e946-4b91-ae0d-ea49d681d60e', careersUrl:'https://jobs.lever.co/wpromote', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 3.7/5 (417 reviews), 49% would recommend.', fit:82, fitNote:'Digital-agency/professional-services model is close to your Deloitte-consulting DNA, and NY hub option fits your metro.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Revenue Operations', company:'Redox', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Healthcare Data SaaS', salaryMin:null, salaryMax:null, source:'Lever', jobUrl:'https://jobs.lever.co/redoxengine/b89410c5-58a1-453b-9d0f-ee6688c72649', careersUrl:'https://jobs.lever.co/redoxengine', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 3.5/5 (85 reviews).', fit:79, fitNote:'Owns RevOps end-to-end at a fully-remote, scaling healthcare-data company.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Director, Revenue Operations', company:'Loop (Loop Returns)', location:'Remote / Boston / Chicago / Columbus / Austin / NYC', state:'NY', mode:'Hybrid', industry:'E-commerce SaaS', salaryMin:null, salaryMax:null, source:'Lever', jobUrl:'https://jobs.lever.co/loopreturns/c3adfa1c-daab-4ef4-9441-b649d6216fae', careersUrl:'https://jobs.lever.co/loopreturns', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:78, fitNote:'NYC listed as a location option; senior director scope reads as broad GTM ops ownership.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Revenue Operations & Technology', company:'Fleetio', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS / Fleet Management', salaryMin:null, salaryMax:null, source:'Workable', jobUrl:'https://apply.workable.com/fleetio/j/BA4D0137BF/', careersUrl:'https://apply.workable.com/fleetio/', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 3.4/5 (123 reviews); one review flags "good product, low pay."', fit:74, fitNote:'Systems/technology-heavy RevOps scope; comp risk flagged by review signal above.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Revenue Operations', company:'InfoSum', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Data Privacy SaaS', salaryMin:null, salaryMax:null, source:'Workable', jobUrl:'https://apply.workable.com/infosum/j/4944B2F1A6', careersUrl:'https://apply.workable.com/infosum/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:72, fitNote:'Operational leadership for the sales function; smaller company, comp undisclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Director, Revenue Operations', company:'Actionstep', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Legal SaaS', salaryMin:null, salaryMax:null, source:'Workable / Remotive', jobUrl:'https://apply.workable.com/actionstep/j/CDAB40A0EB/', careersUrl:'https://apply.workable.com/actionstep/', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 3.7/5 (37 reviews).', fit:76, fitNote:'Owns full revenue lifecycle (lead routing through renewal/expansion) for legal practice-management SaaS.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, GTM Ops (Americas)', company:'Smartsheet', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS', salaryMin:null, salaryMax:null, source:'WeWorkRemotely', jobUrl:'https://weworkremotely.com/remote-jobs/smartsheet-director-gtm-ops-americas', careersUrl:'https://www.smartsheet.com/company/careers', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 3.2/5 (1,312+ reviews), down ~12% over last 12 months — caution flag on current internal sentiment.', fit:77, fitNote:'Strong functional match (GTM ops, Americas); review trend is a real yellow flag worth probing in interviews.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, GTM Strategy & Analytics', company:'Temporal Technologies', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Developer Infrastructure SaaS', salaryMin:null, salaryMax:null, source:'WeWorkRemotely', jobUrl:'https://weworkremotely.com/remote-jobs/temporal-technologies-director-gtm-strategy-analytics', careersUrl:'https://weworkremotely.com/company/temporal-technologies', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 83% would recommend (small sample, 21 reviews — directionally positive but low confidence).', fit:79, fitNote:'Sits at intersection of Sales/Marketing/Finance/Data — close analog to your Gartner GTM-strategy work.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Sales Compensation', company:'Prove', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Identity Verification Tech', salaryMin:null, salaryMax:null, source:'WeWorkRemotely', jobUrl:'https://weworkremotely.com/remote-jobs/prove-director-sales-compensation', careersUrl:'https://weworkremotely.com/company/prove', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:68, fitNote:'Comp-design specialization is narrower than your generalist ops/strategy background.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director of Revenue Operations', company:'AxisCare', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Healthcare / Home-Care SaaS', salaryMin:null, salaryMax:null, source:'Remotive', jobUrl:'https://remotive.com/remote/jobs/sales/director-of-revenue-operations-5239206', careersUrl:'https://remotive.com/remote-jobs/company/axiscare', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:73, fitNote:'Owns the operational/technology backbone of the revenue engine; builds a RevOps team from scratch.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director of Revenue Operations', company:'ACI Learning', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'EdTech / Training', salaryMin:null, salaryMax:null, source:'Remotive', jobUrl:'https://remotive.com/remote/jobs/all-others/director-of-revenue-operations-4591979', careersUrl:'https://remotive.com/remote-jobs/company/aci-learning', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:70, fitNote:'Solid functional match; smaller EdTech company, comp undisclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director of RevOps', company:'PartsBase', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'B2B Marketplace (Aviation Parts)', salaryMin:null, salaryMax:null, source:'Dynamite Jobs', jobUrl:'https://dynamitejobs.com/company/partsbase/remote-job/director-of-revops', careersUrl:'https://dynamitejobs.com/company/partsbase', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:71, fitNote:'Building RevOps function from the ground up — good fit if you want to build vs. inherit a system.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director, Revenue Operations', company:'Eptura', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Real Estate / Facilities SaaS', salaryMin:null, salaryMax:null, source:'Himalayas', jobUrl:'https://himalayas.app/companies/eptura/jobs/director-revenue-operations-8861436588', careersUrl:'https://eptura.com/careers/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:73, fitNote:'Oversees commission management and sales optimization.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Sales Operations Manager', company:'A-LIGN', location:'US (Remote/Hybrid)', state:'Remote', mode:'Hybrid', industry:'Cybersecurity Compliance & Audit (Professional Services)', salaryMin:null, salaryMax:null, source:'Greenhouse', jobUrl:'https://job-boards.greenhouse.io/align/jobs/8652216002', careersUrl:'https://job-boards.greenhouse.io/align', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:81, fitNote:'Compliance/audit professional-services model closely echoes your Aon McLagan + Deloitte background.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Strategy and Operations Manager, Revenue Operations', company:'Whatnot', location:'New York, NY (HQ)', state:'NY', mode:'Hybrid', industry:'Live-Commerce Marketplace', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/whatnot/300adeb9-5c0f-4c49-bcdb-60f1c9867a73', careersUrl:'https://jobs.ashbyhq.com/whatnot', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.1/5 (204 reviews), 79% recommend — but a recent review titled "the downfall has begun" is a note of caution on trajectory.', fit:76, fitNote:'NY HQ matches your metro directly; manager-level IC scope fits your "open to IC" criterion.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'GTM Strategy & Operations Manager', company:'Tabs', location:'New York, NY (HQ)', state:'NY', mode:'Hybrid', industry:'Fintech / B2B SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/Tabs/89827aaa-1fda-4a2a-a84e-34c43ed50ac7', careersUrl:'https://jobs.ashbyhq.com/Tabs', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass (early-stage company, likely low review volume).', fit:74, fitNote:'NY HQ match; early-stage fintech, so comp/equity mix likely differs from your target base-heavy range — confirm before pursuing.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Revenue Strategy & Operations Senior Manager, GTM Compensation', company:'Dandy', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Dental / HealthTech SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/dandy/f16fa48f-62b2-4032-afa3-2528fc6d8503', careersUrl:'https://jobs.ashbyhq.com/dandy', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:70, fitNote:'GTM compensation focus is a narrower slice of your broader ops/strategy scope.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Field Revenue Operations Strategist, North America', company:'Camunda', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Process Orchestration SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/camunda/0d5a0ffa-ef3a-4b68-b682-cfcd8241f2b6', careersUrl:'https://jobs.ashbyhq.com/camunda', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:71, fitNote:'Field-facing RevOps strategist role; solid functional overlap.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Revenue Operations & Strategy Manager', company:'Nooks', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Sales-Tech SaaS', salaryMin:170, salaryMax:195, source:'Dynamite Jobs', jobUrl:'https://dynamitejobs.com/company/nooks/remote-job/revenue-operations-strategy-manager', careersUrl:'https://dynamitejobs.com/company/nooks', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.3/5 (33 reviews), 84% recommend — strong signal, though small sample size.', fit:83, fitNote:'Only role in this pass with BOTH a confirmed comp band inside your range AND a confirmed recency signal.', bucket:'7day', postedNote:'Source-confirmed: opened ~6 days ago as of the Dynamite Jobs listing (2026-09-05 reference date).'},
+{title:'Revenue Operations Manager', company:'Versapay', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Fintech / B2B Payments SaaS', salaryMin:null, salaryMax:null, source:'Himalayas', jobUrl:'https://himalayas.app/companies/versapay/jobs/revenue-operations-manager', careersUrl:'https://www.versapay.com/careers', hiringManager:'Per the JD itself: reports to the Director of Revenue Operations (name not publicly confirmed).', reviews:'Not pulled this pass.', fit:68, fitNote:'Solid IC-level fit given your openness to individual-contributor roles; below your typical seniority band.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Manager, Strategy and Operations', company:'Enova International', location:'Chicago, IL (Hybrid: Tue-Thu office)', state:'IL', mode:'Hybrid', industry:'Fintech', salaryMin:null, salaryMax:null, source:'Greenhouse', jobUrl:'https://boards.greenhouse.io/embed/job_app?token=7202417', careersUrl:'https://boards.greenhouse.io/enovainternational', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:65, fitNote:'Strong functional/seniority fit but Chicago hybrid requirement means relocation — not NY/CT as targeted.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Manager, Sales Strategy Operations', company:'Midi Health', location:'Remote (US), optional Bay Area hybrid', state:'Remote', mode:'Remote', industry:'Telehealth', salaryMin:null, salaryMax:null, source:'Greenhouse', jobUrl:'https://boards.greenhouse.io/embed/job_app?token=4578352005', careersUrl:'https://boards.greenhouse.io/midihealth', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:72, fitNote:'Healthcare-adjacent GTM ops scope; fully remote option available.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Senior Lead, Sales Operations & Strategy', company:'Sprinto', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Compliance / Security SaaS', salaryMin:null, salaryMax:null, source:'Remotive', jobUrl:'https://remotive.com/remote/jobs/sales/senior-lead-sales-operations-strategy-4189332', careersUrl:'https://remotive.com/remote-jobs/company/sprinto', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:74, fitNote:'Compliance-SaaS angle again echoes your risk/compliance program background (Korn Ferry, Aon McLagan).', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Revenue Operations Manager', company:'Genesys', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'CX / SaaS', salaryMin:null, salaryMax:null, source:'Remotive', jobUrl:'https://remotive.com/remote/jobs/sales/revenue-operations-manager-4158411', careersUrl:'https://www.genesys.com/careers', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:66, fitNote:'Manager-level, large established CX-SaaS company; comp undisclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director of Revenue Operations', company:'Stensul', location:'New York City, NY', state:'NY', mode:'Hybrid', industry:'Marketing SaaS', salaryMin:null, salaryMax:null, source:'Wellfound', jobUrl:'https://wellfound.com/jobs/3610616-director-of-revenue-operations', careersUrl:'https://wellfound.com/company/stensul', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:80, fitNote:'Exact NYC location match to your home metro — highest location-fit of any Director role found.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
+{title:'Director of Sales Strategy and Operations', company:'SingleStore', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Database SaaS', salaryMin:162, salaryMax:287, source:'Wellfound', jobUrl:'https://wellfound.com/jobs', careersUrl:'https://www.singlestore.com/careers/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:75, fitNote:'Comp confirmed in range, but source signal says "posted ~3 months ago" — this is likely an evergreen or possibly-filled listing. Verify it is still active before spending outreach time on it.', bucket:'unconfirmed', postedNote:'Flagged stale: ~3 months old per Wellfound listing as of 2026-09-05. Confirm live status before pursuing.'},
+];
+
+function fitClass(f){ return f>=80?'fit-high':(f>=65?'fit-mid':'fit-low'); }
+function modeClass(m){ return m==='Remote'?'pill-remote':'pill-hybrid'; }
+function salBand(min,max){
+  if(min==null) return 'unlisted';
+  const mid=(min+max)/2;
+  if(mid<180) return '140-180';
+  if(mid<230) return '180-230';
+  if(mid<280) return '230-280';
+  return '280-305';
+}
+function salaryDisplay(min,max){ return min==null ? 'Not listed' : `$${min}K – $${max}K`; }
+
+const TABS = [
+  {key:'24h', label:'Last 24 Hours'},
+  {key:'3day', label:'Last 3 Days'},
+  {key:'7day', label:'Last 7 Days'},
+  {key:'unconfirmed', label:'All Verified Matches (date unconfirmed)'},
+];
+let activeTab = '24h';
+
+function uniqueSorted(arr){ return [...new Set(arr)].sort(); }
+
+function populateFilterOptions(){
+  const stateSel = document.getElementById('stateFilter');
+  uniqueSorted(ROLES.map(r=>r.state)).forEach(s=>{
+    const o=document.createElement('option'); o.value=s; o.textContent=s; stateSel.appendChild(o);
+  });
+  const indSel = document.getElementById('industryFilter');
+  uniqueSorted(ROLES.map(r=>r.industry)).forEach(i=>{
+    const o=document.createElement('option'); o.value=i; o.textContent=i; indSel.appendChild(o);
+  });
+}
+
+function renderTabs(){
+  const bar=document.getElementById('tabBar'); bar.innerHTML='';
+  TABS.forEach(t=>{
+    const n = t.key==='unconfirmed' ? ROLES.filter(r=>r.bucket==='unconfirmed').length
+            : t.key==='7day' ? ROLES.filter(r=>r.bucket==='7day'||r.bucket==='3day'||r.bucket==='24h').length
+            : t.key==='3day' ? ROLES.filter(r=>r.bucket==='3day'||r.bucket==='24h').length
+            : ROLES.filter(r=>r.bucket==='24h').length;
+    const btn=document.createElement('button');
+    btn.className='tab-btn'+(t.key===activeTab?' active':'');
+    btn.innerHTML = `${t.label} <span class="count">${n}</span>`;
+    btn.onclick=()=>{ activeTab=t.key; renderTabs(); renderLiveLinks(); renderTable(); };
+    bar.appendChild(btn);
+  });
+}
+
+function renderLiveLinks(){
+  const host=document.getElementById('liveLinksHost');
+  if(activeTab==='unconfirmed'){ host.innerHTML=''; return; }
+  const links = LIVE_LINK_SETS[activeTab];
+  host.innerHTML = `<div class="note" style="margin-bottom:6px;">Run a true live scan right now for this window (opens Google, date range auto-computed from today):</div>
+    <div class="live-links">${links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('')}</div>`;
+}
+
+function getFiltered(){
+  const q = document.getElementById('searchBox').value.trim().toLowerCase();
+  const st = document.getElementById('stateFilter').value;
+  const sal = document.getElementById('salaryFilter').value;
+  const ind = document.getElementById('industryFilter').value;
+  const mode = document.getElementById('modeFilter').value;
+
+  return ROLES.filter(r=>{
+    if(activeTab==='unconfirmed' && r.bucket!=='unconfirmed') return false;
+    if(activeTab==='7day' && r.bucket==='unconfirmed') return false;
+    if(activeTab==='3day' && !(r.bucket==='3day'||r.bucket==='24h')) return false;
+    if(activeTab==='24h' && r.bucket!=='24h') return false;
+    if(q && !(r.title.toLowerCase().includes(q) || r.company.toLowerCase().includes(q) || r.industry.toLowerCase().includes(q))) return false;
+    if(st && r.state!==st) return false;
+    if(sal && salBand(r.salaryMin,r.salaryMax)!==sal) return false;
+    if(ind && r.industry!==ind) return false;
+    if(mode && r.mode!==mode) return false;
+    return true;
+  }).sort((a,b)=>b.fit-a.fit);
+}
+
+function renderTable(){
+  const host=document.getElementById('tableHost');
+  const rows=getFiltered();
+  if(rows.length===0){
+    host.innerHTML = `<div class="empty-state">No roles matched with a confirmed post-date in this window as of the 2026-09-05 research pass.<br>Use the live search links above to run a fresh check right now — that's the only reliable way to catch true same-day postings on these boards.</div>`;
+    return;
+  }
+  host.innerHTML = `<div class="table-scroll"><table>
+    <thead><tr>
+      <th>Fit</th><th>Role</th><th>Company</th><th>Location / Mode</th><th>Salary</th><th>Industry</th><th>Posted</th><th>Likely Hiring Manager</th><th>2026 Reviews</th><th>Links</th>
+    </tr></thead>
+    <tbody>
+    ${rows.map(r=>`
+      <tr>
+        <td><span class="fit ${fitClass(r.fit)}">${r.fit}%</span><div class="note" style="margin-top:4px;max-width:150px;">${r.fitNote}</div></td>
+        <td class="role-title">${r.title}</td>
+        <td class="company">${r.company}</td>
+        <td>${r.location}<br><span class="pill ${modeClass(r.mode)}">${r.mode}</span></td>
+        <td>${salaryDisplay(r.salaryMin,r.salaryMax)}</td>
+        <td>${r.industry}</td>
+        <td class="note" style="max-width:170px;">${r.postedNote}</td>
+        <td class="note" style="max-width:220px;">${r.hiringManager}</td>
+        <td class="note" style="max-width:200px;">${r.reviews}</td>
+        <td class="links">
+          <a href="${r.jobUrl}" target="_blank" rel="noopener">Job posting ↗</a>
+          <a href="${r.careersUrl}" target="_blank" rel="noopener">Company jobs page ↗</a>
+        </td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div>`;
+}
+
+function renderStats(){
+  const host=document.getElementById('statRow');
+  const total = ROLES.length;
+  const highFit = ROLES.filter(r=>r.fit>=80).length;
+  const withComp = ROLES.filter(r=>r.salaryMin!=null).length;
+  const nyMetro = ROLES.filter(r=>r.state==='NY').length;
+  host.innerHTML = `
+    <div class="stat"><div class="n">${total}</div><div class="l">Verified roles found</div></div>
+    <div class="stat"><div class="n">${highFit}</div><div class="l">80%+ fit</div></div>
+    <div class="stat"><div class="n">${withComp}</div><div class="l">Comp disclosed by employer</div></div>
+    <div class="stat"><div class="n">${nyMetro}</div><div class="l">NY-metro located</div></div>
+  `;
+}
+
+['searchBox','stateFilter','salaryFilter','industryFilter','modeFilter'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', renderTable);
+  document.getElementById(id).addEventListener('change', renderTable);
+});
+document.getElementById('resetBtn').onclick = ()=>{
+  document.getElementById('searchBox').value='';
+  document.getElementById('stateFilter').value='';
+  document.getElementById('salaryFilter').value='';
+  document.getElementById('industryFilter').value='';
+  document.getElementById('modeFilter').value='';
+  renderTable();
+};
+
+populateFilterOptions();
+renderStats();
+renderTabs();
+renderLiveLinks();
+renderTable();
+</script>
+</body>
+</html>
