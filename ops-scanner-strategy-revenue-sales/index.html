@@ -73,6 +73,8 @@
   .fit-high{background:var(--good-bg);color:var(--good);}
   .fit-mid{background:var(--fit-mid-bg);color:var(--fit-mid-fg);}
   .fit-low{background:var(--bad-bg);color:var(--bad);}
+  .fit-pass{background:var(--head);color:var(--muted);font-weight:700;letter-spacing:.02em;}
+  .date-cell{white-space:nowrap;cursor:help;}
   .links a{display:block;font-size:12px;color:var(--accent);text-decoration:none;margin-bottom:3px;}
   .links a:hover{text-decoration:underline;}
   .note{color:var(--muted);font-size:11.5px;}
@@ -227,7 +229,7 @@ const SEED_ROLES = [
 {title:'GTM Strategy & Operations Manager', company:'Tabs', location:'New York, NY (HQ)', state:'NY', mode:'Hybrid', industry:'Fintech / B2B SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/Tabs/89827aaa-1fda-4a2a-a84e-34c43ed50ac7', careersUrl:'https://jobs.ashbyhq.com/Tabs', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass (early-stage company, likely low review volume).', fit:74, fitNote:'NY HQ match; early-stage fintech, so comp/equity mix likely differs from your target base-heavy range — confirm before pursuing.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Revenue Strategy & Operations Senior Manager, GTM Compensation', company:'Dandy', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Dental / HealthTech SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/dandy/f16fa48f-62b2-4032-afa3-2528fc6d8503', careersUrl:'https://jobs.ashbyhq.com/dandy', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:70, fitNote:'GTM compensation focus is a narrower slice of your broader ops/strategy scope.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Senior Field Revenue Operations Strategist, North America', company:'Camunda', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Process Orchestration SaaS', salaryMin:null, salaryMax:null, source:'Ashby', jobUrl:'https://jobs.ashbyhq.com/camunda/0d5a0ffa-ef3a-4b68-b682-cfcd8241f2b6', careersUrl:'https://jobs.ashbyhq.com/camunda', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:71, fitNote:'Field-facing RevOps strategist role; solid functional overlap.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
-{title:'Revenue Operations & Strategy Manager', company:'Nooks', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Sales-Tech SaaS', salaryMin:170, salaryMax:195, source:'Dynamite Jobs', jobUrl:'https://dynamitejobs.com/company/nooks/remote-job/revenue-operations-strategy-manager', careersUrl:'https://dynamitejobs.com/company/nooks', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.3/5 (33 reviews), 84% recommend — strong signal, though small sample size.', fit:83, fitNote:'Only role in this pass with BOTH a confirmed comp band inside your range AND a confirmed recency signal.', bucket:'7day', postedNote:'Source-confirmed: opened ~6 days ago as of the Dynamite Jobs listing (2026-09-05 reference date).'},
+{title:'Revenue Operations & Strategy Manager', company:'Nooks', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Sales-Tech SaaS', salaryMin:170, salaryMax:195, source:'Dynamite Jobs', jobUrl:'https://dynamitejobs.com/company/nooks/remote-job/revenue-operations-strategy-manager', careersUrl:'https://dynamitejobs.com/company/nooks', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.3/5 (33 reviews), 84% recommend — strong signal, though small sample size.', fit:83, fitNote:'Only role in this pass with BOTH a confirmed comp band inside your range AND a confirmed recency signal.', bucket:'7day', confirmedDays:6, postedNote:'Source-confirmed: opened ~6 days ago as of the Dynamite Jobs listing (2026-09-05 reference date).'},
 {title:'Revenue Operations Manager', company:'Versapay', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Fintech / B2B Payments SaaS', salaryMin:null, salaryMax:null, source:'Himalayas', jobUrl:'https://himalayas.app/companies/versapay/jobs/revenue-operations-manager', careersUrl:'https://www.versapay.com/careers', hiringManager:'Per the JD itself: reports to the Director of Revenue Operations (name not publicly confirmed).', reviews:'Not pulled this pass.', fit:68, fitNote:'Solid IC-level fit given your openness to individual-contributor roles; below your typical seniority band.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Senior Manager, Strategy and Operations', company:'Enova International', location:'Chicago, IL (Hybrid: Tue-Thu office)', state:'IL', mode:'Hybrid', industry:'Fintech', salaryMin:null, salaryMax:null, source:'Greenhouse', jobUrl:'https://boards.greenhouse.io/embed/job_app?token=7202417', careersUrl:'https://boards.greenhouse.io/enovainternational', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:65, fitNote:'Strong functional/seniority fit but Chicago hybrid requirement means relocation — not NY/CT as targeted.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Senior Manager, Sales Strategy Operations', company:'Midi Health', location:'Remote (US), optional Bay Area hybrid', state:'Remote', mode:'Remote', industry:'Telehealth', salaryMin:null, salaryMax:null, source:'Greenhouse', jobUrl:'https://boards.greenhouse.io/embed/job_app?token=4578352005', careersUrl:'https://boards.greenhouse.io/midihealth', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:72, fitNote:'Healthcare-adjacent GTM ops scope; fully remote option available.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
@@ -378,7 +380,16 @@ async function checkLiveDates(){
 }
 document.getElementById('liveCheckBtn').addEventListener('click', checkLiveDates);
 
-function fitClass(f){ return f>=80?'fit-high':(f>=65?'fit-mid':'fit-low'); }
+const PASS_THRESHOLD = 60; // below this, Match shows "Pass" instead of a percentage — matches the rubric's 45-59/below-45 "real mismatch" bands
+function matchClass(f){ return f<PASS_THRESHOLD?'fit-pass':(f>=75?'fit-high':'fit-mid'); }
+function matchLabel(f){ return f<PASS_THRESHOLD?'Pass':f+'%'; }
+function dateDisplay(r){
+  if(r.confirmedDays!=null){
+    return r.confirmedDays<1 ? 'Today' : Math.round(r.confirmedDays)+'d ago';
+  }
+  if(r.bucket==='stale') return 'Stale';
+  return 'Not confirmed';
+}
 function modeClass(m){ return m==='Remote'?'pill-remote':(m==='Hybrid'?'pill-hybrid':'pill-mid'); }
 function salBand(min,max){
   if(min==null) return 'unlisted';
@@ -470,18 +481,18 @@ function renderTable(){
   }
   host.innerHTML = `<div class="table-scroll"><table>
     <thead><tr>
-      <th>Fit</th><th>Role</th><th>Company</th><th>Location / Mode</th><th>Salary</th><th>Industry</th><th>Posted</th><th>Likely Hiring Manager</th><th>2026 Reviews</th><th>Links</th>
+      <th>Match</th><th>Role</th><th>Company</th><th>Date</th><th>Location / Mode</th><th>Salary</th><th>Industry</th><th>Likely Hiring Manager</th><th>2026 Reviews</th><th>Links</th>
     </tr></thead>
     <tbody>
     ${rows.map(r=>`
       <tr>
-        <td><span class="fit ${fitClass(r.fit)}">${r.fit}%</span><div class="note" style="margin-top:4px;max-width:150px;">${r.fitNote}</div></td>
+        <td><span class="fit ${matchClass(r.fit)}">${matchLabel(r.fit)}</span><div class="note" style="margin-top:4px;max-width:150px;">${r.fitNote}</div></td>
         <td class="role-title">${r.title}</td>
         <td class="company">${r.company}</td>
+        <td class="date-cell" title="${r.postedNote.replace(/"/g,'&quot;')}">${dateDisplay(r)}</td>
         <td>${r.location}<br><span class="pill ${modeClass(r.mode)}">${r.mode}</span></td>
         <td>${salaryDisplay(r.salaryMin,r.salaryMax)}</td>
         <td>${r.industry}</td>
-        <td class="note" style="max-width:170px;">${r.postedNote}</td>
         <td class="note" style="max-width:220px;">${r.hiringManager}</td>
         <td class="note" style="max-width:200px;">${r.reviews}</td>
         <td class="links">
@@ -496,12 +507,14 @@ function renderTable(){
 function renderStats(){
   const host=document.getElementById('statRow');
   const total = ROLES.length;
-  const highFit = ROLES.filter(r=>r.fit>=80).length;
+  const worthPursuing = ROLES.filter(r=>r.fit>=PASS_THRESHOLD).length;
+  const passed = total - worthPursuing;
   const withComp = ROLES.filter(r=>r.salaryMin!=null).length;
   const nyMetro = ROLES.filter(r=>r.state==='NY').length;
   host.innerHTML = `
     <div class="stat"><div class="n">${total}</div><div class="l">Verified roles found</div></div>
-    <div class="stat"><div class="n">${highFit}</div><div class="l">80%+ fit</div></div>
+    <div class="stat"><div class="n">${worthPursuing}</div><div class="l">Worth pursuing (Match ${PASS_THRESHOLD}%+)</div></div>
+    <div class="stat"><div class="n">${passed}</div><div class="l">Marked Pass</div></div>
     <div class="stat"><div class="n">${withComp}</div><div class="l">Comp disclosed by employer</div></div>
     <div class="stat"><div class="n">${nyMetro}</div><div class="l">NY-metro located</div></div>
   `;
