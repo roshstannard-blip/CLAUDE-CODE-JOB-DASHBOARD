@@ -3,49 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strategy / Revenue / Sales Ops Job Scanner — Rosh Stannard</title>
+<title>Ops Job Radar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap">
 <style>
   :root{
-    --bg:#f4f5f7; --panel:#ffffff; --border:#dde1e6; --text:#1c2230; --muted:#5b6472;
-    --accent:#1f4fd6; --accent-light:#eaf0ff; --good:#1b8a5a; --good-bg:#e6f7ee;
-    --warn:#a15c00; --warn-bg:#fff3e0; --bad:#b3261e; --bad-bg:#fdecea; --head:#eef1f6;
+    --bg:#f2f4fa; --panel:#ffffff; --border:#dde2ee; --text:#1a2033; --muted:#5c6579;
+    --accent:#2452e0; --accent-fg:#ffffff; --accent-light:#e9eefd; --accent-border:#c5d3f8; --accent-hover:#d9e3fb;
+    --good:#147a52; --good-bg:#e2f5ea; --warn:#8a5300; --warn-bg:#fdf0dc; --warn-border:#eccf98; --warn-text:#5c3d05;
+    --bad:#ae2318; --bad-bg:#fbeae8; --head:#edf0f8; --hover:#f6f8fd;
+    --pill-remote-bg:#e6effe; --pill-remote-fg:#2452e0; --pill-hybrid-bg:#fdf0dc; --pill-hybrid-fg:#8a5300;
+    --fit-mid-bg:#eef1f8; --fit-mid-fg:#3a4459; --input-bg:#ffffff;
+    --font-display:'Space Grotesk',-apple-system,sans-serif; --font-body:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1320; --panel:#171d2e; --border:#2b3348; --text:#e8ebf5; --muted:#9aa3ba;
+      --accent:#7d9dff; --accent-fg:#0f1320; --accent-light:#1c2740; --accent-border:#33437a; --accent-hover:#243258;
+      --good:#4ad895; --good-bg:#123527; --warn:#f0ab4f; --warn-bg:#3b2c11; --warn-border:#6b4d18; --warn-text:#f3d9a8;
+      --bad:#ff8179; --bad-bg:#3a1a17; --head:#1b2236; --hover:#1b2338;
+      --pill-remote-bg:#1c2740; --pill-remote-fg:#9db6ff; --pill-hybrid-bg:#3b2c11; --pill-hybrid-fg:#f0ab4f;
+      --fit-mid-bg:#232b42; --fit-mid-fg:#c3cbe0; --input-bg:#1d2438;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1320; --panel:#171d2e; --border:#2b3348; --text:#e8ebf5; --muted:#9aa3ba;
+    --accent:#7d9dff; --accent-fg:#0f1320; --accent-light:#1c2740; --accent-border:#33437a; --accent-hover:#243258;
+    --good:#4ad895; --good-bg:#123527; --warn:#f0ab4f; --warn-bg:#3b2c11; --warn-border:#6b4d18; --warn-text:#f3d9a8;
+    --bad:#ff8179; --bad-bg:#3a1a17; --head:#1b2236; --hover:#1b2338;
+    --pill-remote-bg:#1c2740; --pill-remote-fg:#9db6ff; --pill-hybrid-bg:#3b2c11; --pill-hybrid-fg:#f0ab4f;
+    --fit-mid-bg:#232b42; --fit-mid-fg:#c3cbe0; --input-bg:#1d2438;
   }
   *{box-sizing:border-box;}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);}
-  header{background:linear-gradient(135deg,#14213d,#1f4fd6);color:#fff;padding:20px 28px;}
-  header h1{margin:0 0 4px;font-size:20px;}
-  header p{margin:0;font-size:13px;opacity:.9;max-width:900px;line-height:1.5;}
+  body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--text);}
+  header{background:linear-gradient(135deg,#0f1a3d,#2452e0);color:#fff;padding:22px 28px;}
+  header h1{margin:0 0 5px;font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.01em;}
+  header p{margin:0;font-size:13px;opacity:.92;max-width:900px;line-height:1.55;}
   .wrap{max-width:1400px;margin:0 auto;padding:20px;}
-  .callout{background:#fff8e1;border:1px solid #e8c96b;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:18px;color:#5c4a06;}
-  .callout b{color:#3a2f00;}
+  .callout{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:18px;color:var(--warn-text);}
+  .callout b{color:var(--warn-text);}
   .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border);}
-  .tab-btn{background:none;border:none;padding:10px 16px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;}
+  .tab-btn{background:none;border:none;padding:10px 16px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit;}
+  .tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
   .tab-btn .count{background:var(--head);border-radius:10px;padding:1px 8px;margin-left:6px;font-size:11.5px;color:var(--text);}
   .tab-btn.active .count{background:var(--accent-light);color:var(--accent);}
   .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:18px;}
   .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
-  .filters select, .filters input[type=text]{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;color:var(--text);}
+  .filters select, .filters input[type=text]{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:var(--input-bg);color:var(--text);font-family:inherit;}
   .filters input[type=text]{flex:1;min-width:220px;}
   .filters label{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:block;margin-bottom:3px;}
   .filter-group{display:flex;flex-direction:column;}
-  .reset-btn{align-self:flex-end;background:var(--head);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12.5px;cursor:pointer;color:var(--text);}
+  .reset-btn{align-self:flex-end;background:var(--head);border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:12.5px;cursor:pointer;color:var(--text);font-family:inherit;}
+  button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
   .live-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-  .live-links a{font-size:12px;background:var(--accent-light);color:var(--accent);border:1px solid #c6d6fb;border-radius:16px;padding:6px 12px;text-decoration:none;}
-  .live-links a:hover{background:#dbe6ff;}
+  .live-links a{font-size:12px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-border);border-radius:16px;padding:6px 12px;text-decoration:none;}
+  .live-links a:hover{background:var(--accent-hover);}
   .empty-state{padding:28px 16px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.7;}
   table{width:100%;border-collapse:collapse;font-size:12.8px;}
   thead th{background:var(--head);text-align:left;padding:9px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);position:sticky;top:0;white-space:nowrap;}
   tbody td{padding:10px;border-top:1px solid var(--border);vertical-align:top;}
-  tbody tr:hover{background:#fafbff;}
+  tbody tr:hover{background:var(--hover);}
   .role-title{font-weight:700;color:var(--text);}
   .company{font-weight:600;color:var(--accent);}
   .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap;}
-  .pill-remote{background:#e8f1ff;color:#1f4fd6;}
-  .pill-hybrid{background:#fdf1e6;color:#a15c00;}
-  .fit{font-weight:800;padding:3px 9px;border-radius:14px;font-size:12px;display:inline-block;min-width:44px;text-align:center;}
+  .pill-remote{background:var(--pill-remote-bg);color:var(--pill-remote-fg);}
+  .pill-hybrid{background:var(--pill-hybrid-bg);color:var(--pill-hybrid-fg);}
+  .fit{font-weight:800;padding:3px 9px;border-radius:14px;font-size:12px;display:inline-block;min-width:44px;text-align:center;font-variant-numeric:tabular-nums;}
   .fit-high{background:var(--good-bg);color:var(--good);}
-  .fit-mid{background:#eef1f6;color:#3a4459;}
+  .fit-mid{background:var(--fit-mid-bg);color:var(--fit-mid-fg);}
   .fit-low{background:var(--bad-bg);color:var(--bad);}
   .links a{display:block;font-size:12px;color:var(--accent);text-decoration:none;margin-bottom:3px;}
   .links a:hover{text-decoration:underline;}
@@ -55,25 +80,32 @@
   .table-scroll{overflow-x:auto;}
   .stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
   .stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 16px;min-width:130px;}
-  .stat .n{font-size:20px;font-weight:800;}
+  .stat .n{font-family:var(--font-display);font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;}
   .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+  .primary-btn{background:var(--accent);color:var(--accent-fg);border:none;border-radius:6px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .primary-btn:disabled{opacity:.6;cursor:default;}
+  .scan-banner{font-size:12px;color:var(--muted);margin-bottom:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .scan-banner .dot{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;}
+  .scan-banner .dot.stale{background:var(--warn);}
 </style>
 </head>
 <body>
 <header>
-  <h1>Strategy / Revenue / Sales Ops Job Scanner</h1>
-  <p>Standalone scanner for Strategy Operations, Revenue Operations &amp; Sales Operations roles — built separately from Rosh's other job-search tools. Target: US-based, Remote/Hybrid (NY / Stamford preferred), $140K&ndash;$305K, Director-track or IC-owner roles at B2B / SaaS / professional-services / consulting companies. Snapshot pulled 2026-09-05.</p>
+  <h1>Ops Job Radar</h1>
+  <p>Standalone scanner for Strategy Operations, Revenue Operations &amp; Sales Operations roles — built separately from Rosh's other job-search tools. Target: US-based, Remote/Hybrid (NY / Stamford preferred), $140K&ndash;$305K, Director-track or IC-owner roles at B2B / SaaS / professional-services / consulting companies.</p>
 </header>
 <div class="wrap">
 
-  <div class="callout">
-    <b>Read this before you trust the dates.</b> Public search indexes (Google/Bing) do not reliably expose "posted X hours/days ago" for most ATS-hosted postings (Greenhouse, Ashby, Lever, Workable) — that data only exists inside each board's own live UI. Of the 34 roles below, exactly <b>1</b> had a source-confirmed post-date inside 7 days (Nooks, ~6 days). Everything else is a currently-live, verified-real posting whose exact post date I could not confirm — it lives in the <b>"All Verified Matches"</b> tab rather than being guessed into a time bucket. To get true same-day (24h) or 3-day freshness, use the <b>live search links</b> at the top of each time tab — they're built from your exact boolean strings and auto-compute today's date range, so click them fresh each morning. No hiring manager name, salary, or review below is invented — anything unconfirmed says so explicitly.
+  <div class="scan-banner" id="scanBanner"><span class="dot"></span> Loading scan status…</div>
+
+  <div class="callout" id="freshnessCallout">
+    <b>Read this before you trust the dates.</b> Public search indexes (Google/Bing) do not reliably expose "posted X hours/days ago" for most ATS-hosted postings (Greenhouse, Ashby, Lever, Workable) — that data only exists inside each board's own live UI. Everything without a source-confirmed date lives in the <b>"All Verified Matches"</b> tab rather than being guessed into a time bucket. To get true same-day (24h) or 3-day freshness, use the <b>live search links</b> at the top of each time tab — they're built from your exact boolean strings and auto-compute today's date range. No hiring manager name, salary, or review below is invented — anything unconfirmed says so explicitly.
   </div>
 
   <div class="panel" style="margin-bottom:18px;">
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-      <button id="liveCheckBtn" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;">Check Live Post Dates ↻</button>
-      <div class="note" id="liveCheckStatus" style="flex:1;min-width:260px;">Calls Greenhouse, Lever &amp; Ashby's public job-board APIs directly from <b>your</b> browser (they're CORS-enabled by design, so this works even though the sandboxed research environment that built this file couldn't reach them). Covers the 13 roles hosted directly on those three ATS platforms. Aggregator-sourced roles (Wellfound, Himalayas, Remotive, WeWorkRemotely, Dynamite Jobs, Remote100k, Workable) don't expose a public API — use their live search links for those.</div>
+      <button id="liveCheckBtn" class="primary-btn">Check Live Post Dates ↻</button>
+      <div class="note" id="liveCheckStatus" style="flex:1;min-width:260px;">Calls Greenhouse, Lever &amp; Ashby's public job-board APIs directly from <b>your</b> browser (they're CORS-enabled by design). Covers roles hosted directly on those three ATS platforms. Aggregator-sourced roles (Wellfound, Himalayas, Remotive, WeWorkRemotely, Dynamite Jobs, Remote100k, Workable) don't expose a public API — use their live search links for those.</div>
     </div>
   </div>
 
@@ -123,11 +155,11 @@
 </div>
 
 <footer>
-  <p><b>Methodology:</b> Method 1 (boolean site: search across Greenhouse, Ashby, Lever, Workable, WeWorkRemotely, Remote.co, Himalayas, Wellfound, Remotive, Jobspresso, Dynamite Jobs, Remote100k) run 2026-09-05 against your role/industry keyword set. Fit % is graded against your Director, Strategy &amp; Operations positioning (15+ yrs, B2B SaaS &amp; professional services, operating cadence / GTM / RevOps / forecasting, Salesforce &amp; Power BI/Tableau, NYC metro) on function match, seniority, industry, location/mode, and confirmed comp. Hiring manager and 2026 employee-review fields are populated only where I found a public, sourced answer (LinkedIn, company site, or Glassdoor) — everything else is explicitly marked "Not publicly confirmed" rather than guessed. Re-run the live search links periodically to refresh; this file does not auto-refresh on its own.</p>
+  <p><b>Methodology:</b> Method 1 (boolean site: search across Greenhouse, Ashby, Lever, Workable, WeWorkRemotely, Remote.co, Himalayas, Wellfound, Remotive, Jobspresso, Dynamite Jobs, Remote100k) against your role/industry keyword set, re-run automatically once a day. Fit % is graded against your Director, Strategy &amp; Operations positioning (15+ yrs, B2B SaaS &amp; professional services, operating cadence / GTM / RevOps / forecasting, Salesforce &amp; Power BI/Tableau, NYC metro) on function match, seniority, industry, location/mode, and confirmed comp. Hiring manager and employee-review fields are populated only where a public, sourced answer was found (LinkedIn, company site, or Glassdoor) — everything else is explicitly marked "Not publicly confirmed" rather than guessed.</p>
 </footer>
 
 <script>
-const TODAY = new Date('2026-09-05T12:00:00');
+const TODAY = new Date();
 
 function fmtDate(d){ const mm=('0'+(d.getMonth()+1)).slice(-2), dd=('0'+d.getDate()).slice(-2); return mm+'/'+dd+'/'+d.getFullYear(); }
 function daysAgo(n){ const d=new Date(TODAY); d.setDate(d.getDate()-n); return d; }
@@ -164,9 +196,10 @@ const LIVE_LINK_SETS = {
   '7day': SITES.map(s=>({label:s.name, url: googleUrl(s.site,'qdr:w')})),
 };
 
-// ---- DATA: every row below is a real, currently-live posting found via live search on 2026-09-05. ----
+// ---- SEED DATA: every row below is a real posting found via live search on 2026-09-05, kept as the ----
+// fallback shown before the first automated daily scan writes to this artifact's database (see db logic below).
 // salaryMin/Max in $K, null = not listed by employer. bucket: '7day' (confirmed <=7 days) or 'unconfirmed'.
-const ROLES = [
+const SEED_ROLES = [
 {title:'Senior Director, Sales Strategy & Operations', company:'Kong Inc.', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'SaaS / Infrastructure', salaryMin:233, salaryMax:275, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/kong/jobs/senior-director-sales-strategy-operations', careersUrl:'https://konghq.com/careers', hiringManager:'Likely reports toward Joe Eskenazi, Chief Revenue Officer (oversees Sales, Revenue Operations & Enablement per Kong\'s official CRO announcement) — exact direct manager not publicly confirmed.', reviews:'Glassdoor: mixed/polarized — one review calls it "one of the few tech bright spots," another is highly critical. Verify recent sentiment before investing time.', fit:90, fitNote:'Director title, comp squarely in range, B2B SaaS infra, remote-US — as strong a structural match as this pass found.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Director, Americas Sales Strategy & Operations', company:'ServiceNow', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Enterprise SaaS', salaryMin:189, salaryMax:331, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/servicenow/jobs/director-americas-sales-strategy-operations', careersUrl:'https://www.servicenow.com/careers.html', hiringManager:'Not publicly confirmed by name. Americas sales org is led by Steve Walters, Americas President — this role sits at least 1-2 layers below him.', reviews:'Glassdoor: 4.0/5 (5,861 reviews), down ~7% over last 12 months — still strong, trend worth watching.', fit:88, fitNote:'Director + Americas strategy scope + comp band exactly matches your range; large enterprise SaaS.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Director, Sales Operations Management (Security)', company:'ServiceNow', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Enterprise SaaS', salaryMin:null, salaryMax:null, source:'Himalayas / Company site', jobUrl:'https://himalayas.app/companies/servicenow/jobs/director-sales-operations-management-security', careersUrl:'https://www.servicenow.com/careers.html', hiringManager:'Not publicly confirmed.', reviews:'Glassdoor: 4.0/5 (5,861 reviews).', fit:78, fitNote:'Director-level, but scoped narrowly to the Security business unit; comp not disclosed.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
@@ -202,6 +235,54 @@ const ROLES = [
 {title:'Director of Revenue Operations', company:'Stensul', location:'New York City, NY', state:'NY', mode:'Hybrid', industry:'Marketing SaaS', salaryMin:null, salaryMax:null, source:'Wellfound', jobUrl:'https://wellfound.com/jobs/3610616-director-of-revenue-operations', careersUrl:'https://wellfound.com/company/stensul', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:80, fitNote:'Exact NYC location match to your home metro — highest location-fit of any Director role found.', bucket:'unconfirmed', postedNote:'Currently live; exact post date not confirmed by source.'},
 {title:'Director of Sales Strategy and Operations', company:'SingleStore', location:'Remote (US)', state:'Remote', mode:'Remote', industry:'Database SaaS', salaryMin:162, salaryMax:287, source:'Wellfound', jobUrl:'https://wellfound.com/jobs', careersUrl:'https://www.singlestore.com/careers/', hiringManager:'Not publicly confirmed.', reviews:'Not pulled this pass.', fit:75, fitNote:'Comp confirmed in range, but source signal says "posted ~3 months ago" — this is likely an evergreen or possibly-filled listing. Verify it is still active before spending outreach time on it.', bucket:'unconfirmed', postedNote:'Flagged stale: ~3 months old per Wellfound listing as of 2026-09-05. Confirm live status before pursuing.'},
 ];
+
+// `ROLES` is the live working set the whole UI renders from. It starts as the seed snapshot and is
+// replaced wholesale once the artifact's `db` capability delivers a fresher daily scan (see initDb below).
+let ROLES = SEED_ROLES;
+let scanMeta = null; // {lastScanAt, boardsChecked, boardsResponding, openingsRead, source:'db'|'seed'}
+
+function rerenderAll(){
+  populateFilterOptions();
+  renderStats();
+  renderTabs();
+  renderLiveLinks();
+  renderTable();
+  renderScanBanner();
+}
+
+function renderScanBanner(){
+  const host = document.getElementById('scanBanner');
+  if(scanMeta && scanMeta.source === 'db'){
+    const when = new Date(scanMeta.lastScanAt);
+    const hoursAgo = (Date.now() - when.getTime()) / 3600000;
+    const stale = hoursAgo > 30; // daily job late by more than ~6h
+    host.innerHTML = `<span class="dot${stale?' stale':''}"></span> Last automated scan: <b>${when.toLocaleString()}</b> · ${scanMeta.boardsResponding ?? '?'} of ${scanMeta.boardsChecked ?? 12} boards responding · ${ROLES.length} roles currently listed`
+      + (stale ? ` — <span class="flag">this is running later than expected; data may be more than a day old.</span>` : '');
+  } else {
+    host.innerHTML = `<span class="dot stale"></span> Showing the original 2026-09-05 research snapshot — the daily automated scan hasn't written to this artifact yet. It should appear within 24 hours of publishing; if it's been longer, the scheduled job may need attention.`;
+  }
+}
+
+async function initDb(){
+  if(!window.claude){ renderScanBanner(); return; }
+  let db;
+  try{ db = await window.claude.use('db'); }catch(e){ db = null; }
+  if(!db){ renderScanBanner(); return; }
+
+  db.doc('meta/scan').onSnapshot(snap=>{
+    if(snap.exists){
+      const d = snap.data();
+      scanMeta = { lastScanAt:d.lastScanAt, boardsChecked:d.boardsChecked, boardsResponding:d.boardsResponding, openingsRead:d.openingsRead, source:'db' };
+      renderScanBanner();
+    }
+  }, err=>{ console.error('meta/scan subscribe failed', err); });
+
+  db.collection('roles').onSnapshot(snap=>{
+    if(snap.empty) return; // keep seed data until the first scan lands
+    ROLES = snap.docs.map(d=>d.data());
+    rerenderAll();
+  }, err=>{ console.error('roles subscribe failed', err); });
+}
 
 // ---- Live post-date check: calls Greenhouse/Lever/Ashby's public, CORS-enabled job-board APIs ----
 // from the viewer's own browser (not the sandboxed research environment, which is network-blocked from these hosts).
@@ -292,7 +373,7 @@ async function checkLiveDates(){
   status.innerHTML = `<b>Live check complete (${new Date().toLocaleTimeString()}):</b> confirmed real post dates for ${ok} of ${candidates.length} ATS-hosted roles.`
     + (failed.length ? ` ${failed.length} could not be matched (API changed shape, job filled/removed, or a browser privacy extension blocked the request) — those keep their "not publicly confirmed" status rather than showing a guess.` : '')
     + ` If nothing changed and you're on Chrome/Firefox with no ad-blocker interfering, this should work every time you open the file — it's a direct call from your machine, not from Claude's sandbox.`;
-  renderTabs(); renderLiveLinks(); renderTable(); renderStats();
+  rerenderAll();
 }
 document.getElementById('liveCheckBtn').addEventListener('click', checkLiveDates);
 
@@ -320,13 +401,19 @@ function uniqueSorted(arr){ return [...new Set(arr)].sort(); }
 
 function populateFilterOptions(){
   const stateSel = document.getElementById('stateFilter');
+  const stateKeep = stateSel.value;
+  stateSel.innerHTML = '<option value="">All locations</option>';
   uniqueSorted(ROLES.map(r=>r.state)).forEach(s=>{
     const o=document.createElement('option'); o.value=s; o.textContent=s; stateSel.appendChild(o);
   });
+  stateSel.value = stateKeep;
   const indSel = document.getElementById('industryFilter');
+  const indKeep = indSel.value;
+  indSel.innerHTML = '<option value="">All industries</option>';
   uniqueSorted(ROLES.map(r=>r.industry)).forEach(i=>{
     const o=document.createElement('option'); o.value=i; o.textContent=i; indSel.appendChild(o);
   });
+  indSel.value = indKeep;
 }
 
 function renderTabs(){
@@ -432,11 +519,8 @@ document.getElementById('resetBtn').onclick = ()=>{
   renderTable();
 };
 
-populateFilterOptions();
-renderStats();
-renderTabs();
-renderLiveLinks();
-renderTable();
+rerenderAll();
+initDb();
 </script>
 </body>
 </html>

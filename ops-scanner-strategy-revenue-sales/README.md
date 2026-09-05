@@ -1,6 +1,11 @@
-# Strategy / Revenue / Sales Ops Job Scanner
+# Ops Job Radar
 
-A standalone job scanner for **Strategy Operations, Revenue Operations, and Sales Operations** roles — built separately from any other job-search tooling in this account. Single self-contained HTML file, no build step, no dependencies. Open `index.html` in any browser.
+A standalone job scanner for **Strategy Operations, Revenue Operations, and Sales Operations** roles — built separately from any other job-search tooling in this account.
+
+**Live version (auto-refreshes daily):** https://claude.ai/code/artifact/96482e68-100c-4b30-8541-045257f53d46
+**Daily scan Routine:** `trig_014uFnBTmRe3bJVP657c3qjs` (fires ~8am ET / 12:00 UTC) — re-runs the search, re-grades fit, and replaces the artifact's database contents. Manage it (pause, change time, delete) via the Claude Code Routines UI or by asking Claude to update trigger `trig_014uFnBTmRe3bJVP657c3qjs`.
+
+`index.html` in this repo is the source file for that artifact — it also runs standalone (open it directly in a browser) but without the daily auto-refresh: without a `window.claude` runtime it just shows the 2026-09-05 seed snapshot below and the "Check Live Post Dates" button. No build step, no dependencies.
 
 ## What it does
 
@@ -18,11 +23,15 @@ Google/Bing search snippets do not reliably expose "posted X hours/days ago" for
 
 ## Refreshing
 
-This file is a snapshot, not a live feed. To refresh:
-1. Click **"Check Live Post Dates"** at the top of the page. This calls Greenhouse's, Lever's, and Ashby's public, CORS-enabled job-board APIs directly from your browser — the same read-only endpoints those companies use to embed their own job boards on their career pages. It works from your machine even though the sandboxed research environment that built this file couldn't reach those domains (network policy blocked it there). It covers the 13 roles hosted directly on those three ATS platforms, pulls their real post/update timestamp, and automatically re-sorts them into the correct 24h/3-day/7-day tab. Roles it can't confirm (API shape changed, job filled, a privacy extension blocked the call) keep their "not publicly confirmed" status rather than showing a guess — check the status line after clicking.
+**On the live artifact, this is now automatic.** The daily Routine re-runs the full search every morning and rewrites the artifact's database; the page reads from that database live (via the `db` capability) and updates for every viewer without anyone touching the file. The banner at the top of the page shows the last scan time and board-coverage count, and flags itself if the daily job runs more than ~30 hours late.
+
+On top of that automatic layer, two manual options remain:
+1. Click **"Check Live Post Dates"** at the top of the page. This calls Greenhouse's, Lever's, and Ashby's public, CORS-enabled job-board APIs directly from your browser — the same read-only endpoints those companies use to embed their own job boards on their career pages — and pulls a real post/update timestamp for roles hosted on those three ATS platforms, re-sorting them into the correct 24h/3-day/7-day tab. Roles it can't confirm keep their "not publicly confirmed" status rather than showing a guess.
 2. For the aggregator-sourced roles (Wellfound, Himalayas, Remotive, WeWorkRemotely, Dynamite Jobs, Remote100k, Workable — no public API), use the live search links in each tab; they always compute against today's date.
-3. Add any new roles you find as new objects in the `ROLES` array in the `<script>` block at the bottom of `index.html` — same shape as the existing entries.
-4. For true daily 24-hour alerting across *all* sources (including the aggregators), a paid job-alert API (LinkedIn Recruiter, SerpAPI Google Jobs, or Indeed's API) is still the only option — that's the one gap "Check Live Post Dates" doesn't close.
+
+For true sub-day alerting across *all* sources (including the aggregators), a paid job-alert API (LinkedIn Recruiter, SerpAPI Google Jobs, or Indeed's API) is still the only option the daily Routine doesn't close.
+
+If you open `index.html` as a plain local file (not the published artifact), there is no `window.claude` runtime, so it falls back to the 2026-09-05 seed data baked into the `SEED_ROLES` array in the `<script>` block — edit that array directly if you want to hand-maintain a local copy.
 
 ## Fit % methodology
 
